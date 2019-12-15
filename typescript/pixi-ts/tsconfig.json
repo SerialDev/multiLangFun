@@ -1,0 +1,19 @@
+
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es5",
+      "sourceMap": true,
+      "outFile": "~/scripts/main.js",
+      "lib": [
+        "dom",
+        "es2015",
+        "es5",
+          "es6",
+	  "pixi"
+      ],
+	"include": [
+    "**/*.ts"
+  ]
+    }
+  }

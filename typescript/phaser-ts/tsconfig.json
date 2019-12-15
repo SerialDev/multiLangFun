@@ -1,0 +1,21 @@
+
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es5",
+      "sourceMap": true,
+      "outFile": "~/scripts/main.js",
+      "lib": [
+        "dom",
+        "es2015",
+        "es5",
+          "es6",
+          "phaser",
+      ],
+        "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/phaser/types/phaser.d.ts",
+    ],
+  },
+  "files": ["./node_modules/phaser/types/phaser.d.ts"]
+  }

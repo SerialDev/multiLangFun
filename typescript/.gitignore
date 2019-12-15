@@ -1,0 +1,7 @@
+/pixi-ts/dist
+/pixi-ts/.cache
+/pixi-ts/package-lock.json
+/pixi-ts/node_modules
+/phaser-ts/dist
+/phaser-ts/node_modules
+/phaser-ts/.cache
