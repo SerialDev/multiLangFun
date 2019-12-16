@@ -25,14 +25,14 @@ type Pos struct {
 };
 
 type KeyMapper struct {
-	up ebiten.MouseButton
-	down ebiten.MouseButton
-	left ebiten.MouseButton
-	right ebiten.MouseButton
+	up ebiten.Key
+	down ebiten.Key
+	left ebiten.Key
+	right ebiten.Key
 }
 
 
-func CreateKeymap(arr []ebiten.MouseButton) KeyMapper {
+func CreateKeymap(arr []ebiten.Key) KeyMapper {
 	keyMap := KeyMapper{
 		up: arr[0],
 		down: arr[1],
@@ -45,8 +45,16 @@ func CreateKeymap(arr []ebiten.MouseButton) KeyMapper {
 var gopherpos = Pos{x:120, y:120};
 var currentKeymap KeyMapper;
 
+
 func update(screen *ebiten.Image) error {
 
+	currentKeymap = CreateKeymap(
+		[]ebiten.Key{
+			ebiten.KeyUp,
+			ebiten.KeyDown,
+			ebiten.KeyLeft,
+			ebiten.KeyRight});
+	
 	screen.Fill(color.NRGBA{0xff, 0xf0, 0xf0, 0xff});
 
 	ebitenutil.DebugPrint(screen, "first ebiten game!");
@@ -73,25 +81,25 @@ func update(screen *ebiten.Image) error {
 	screen.DrawImage(gopherImage, gopherImageOpts);
 
 
-	if ebiten.IsKeyPressed(ebiten.KeyUp){
+	if ebiten.IsKeyPressed(currentKeymap.up){
 		gopherpos.y -= 3;
 		screen.DrawImage(gopherImage, gopherImageOpts);
 		ebitenutil.DebugPrint(screen, "\n\n current_x: !" + fmt.Sprintf("%f", gopherpos.y)  );
 		ebitenutil.DebugPrint(screen, "\nyou pressed up!");
 	}
-	if ebiten.IsKeyPressed(ebiten.KeyDown){
+	if ebiten.IsKeyPressed(currentKeymap.down){
 		gopherpos.y += 3;
 		screen.DrawImage(gopherImage, gopherImageOpts);
 		ebitenutil.DebugPrint(screen, "\n\n current_x: !" + fmt.Sprintf("%f", gopherpos.y)  );
 		ebitenutil.DebugPrint(screen, "\nyou pressed Down!");
 	}
-	if ebiten.IsKeyPressed(ebiten.KeyRight){
+	if ebiten.IsKeyPressed(currentKeymap.right){
 		gopherpos.x += 3;
 		screen.DrawImage(gopherImage, gopherImageOpts);
 		ebitenutil.DebugPrint(screen, "\nyou pressed Right!");
 		ebitenutil.DebugPrint(screen, "\n\n current_x: !" + fmt.Sprintf("%f", gopherpos.x)  );
 	}
-	if ebiten.IsKeyPressed(ebiten.KeyLeft){
+	if ebiten.IsKeyPressed(currentKeymap.left){
 		gopherpos.x -= 3;
 		screen.DrawImage(gopherImage, gopherImageOpts);
 		ebitenutil.DebugPrint(screen, "\n\n current_x: !" + fmt.Sprintf("%f", gopherpos.x)  );
