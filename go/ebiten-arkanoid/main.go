@@ -17,7 +17,7 @@ import (
 
 var square *ebiten.Image;
 var gopherImage *ebiten.Image;
-
+var gopherImageOpts *ebiten.DrawImageOptions
 
 type Pos struct {
 	x float64
@@ -45,42 +45,7 @@ func CreateKeymap(arr []ebiten.Key) KeyMapper {
 var gopherpos = Pos{x:120, y:120};
 var currentKeymap KeyMapper;
 
-
-func update(screen *ebiten.Image) error {
-
-	currentKeymap = CreateKeymap(
-		[]ebiten.Key{
-			ebiten.KeyUp,
-			ebiten.KeyDown,
-			ebiten.KeyLeft,
-			ebiten.KeyRight});
-	
-	screen.Fill(color.NRGBA{0xff, 0xf0, 0xf0, 0xff});
-
-	ebitenutil.DebugPrint(screen, "first ebiten game!");
-
-	if square==nil {
-		square, _ = ebiten.NewImage(16, 16, ebiten.FilterNearest);
-	}
-	square.Fill(color.White);
-
-	opts := &ebiten.DrawImageOptions{};
-	opts.GeoM.Translate(64,64);
-	screen.DrawImage(square, opts);
-
-	img, _, err := image.Decode(bytes.NewReader(resources.Gopher_png))
-	if err != nil {
-		log.Fatal(err);
-		ebitenutil.DebugPrintAt(screen, err.Error(), 0, -1);
-	}
-
-	gopherImage, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault);
-
-	gopherImageOpts := &ebiten.DrawImageOptions{};
-	gopherImageOpts.GeoM.Translate(gopherpos.x, gopherpos.y);
-	screen.DrawImage(gopherImage, gopherImageOpts);
-
-
+func movement(screen *ebiten.Image ){
 	if ebiten.IsKeyPressed(currentKeymap.up){
 		gopherpos.y -= 3;
 		screen.DrawImage(gopherImage, gopherImageOpts);
@@ -114,6 +79,44 @@ func update(screen *ebiten.Image) error {
 		ebitenutil.DebugPrintAt(screen, "you pressed the Right mouse button", 0, 16);
 	}
 
+}
+
+
+func update(screen *ebiten.Image) error {
+
+	currentKeymap = CreateKeymap(
+		[]ebiten.Key{
+			ebiten.KeyUp,
+			ebiten.KeyDown,
+			ebiten.KeyLeft,
+			ebiten.KeyRight});
+
+	screen.Fill(color.NRGBA{0xff, 0xf0, 0xf0, 0xff});
+
+	ebitenutil.DebugPrint(screen, "first ebiten game!");
+
+	if square==nil {
+		square, _ = ebiten.NewImage(16, 16, ebiten.FilterNearest);
+	}
+	square.Fill(color.White);
+
+	opts := &ebiten.DrawImageOptions{};
+	opts.GeoM.Translate(64,64);
+	screen.DrawImage(square, opts);
+
+	img, _, err := image.Decode(bytes.NewReader(resources.Gopher_png))
+	if err != nil {
+		log.Fatal(err);
+		ebitenutil.DebugPrintAt(screen, err.Error(), 0, -1);
+	}
+
+	gopherImage, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault);
+
+	gopherImageOpts := &ebiten.DrawImageOptions{};
+	gopherImageOpts.GeoM.Translate(gopherpos.x, gopherpos.y);
+	screen.DrawImage(gopherImage, gopherImageOpts);
+
+	movement(screen);
 
 	return nil;
 }
