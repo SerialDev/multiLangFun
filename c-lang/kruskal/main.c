@@ -136,6 +136,7 @@ void kruskal_mst(struct Graph* graph)
   for(i=0; i<edge_index; ++i){
     printf("%d -- %d == %d\n", result[i].src, result[i].dest, result[i].weight);
   }
+  free(subsets);
   return;
 }
 
@@ -178,5 +179,7 @@ int main() {
   printf("\ngraph %i",edge_compare(&graph->edge[2], &graph->edge[3]));
 
   kruskal_mst(graph);
+  free(&graph->edge[0]);
+  free(graph);
   return 0;
 }
