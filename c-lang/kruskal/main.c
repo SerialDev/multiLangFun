@@ -54,12 +54,13 @@ int edge_compare(struct Edge* a, struct Edge* b)
 
 }
 
+// Needed in order to work within qsort
 int edge_compare_qsort(const void* a, const void* b)
 {
-  struct Edge* a1 = (struct Edge*)a; 
-  struct Edge* b1 = (struct Edge*)b; 
-  return a1->weight > b1->weight; 
-  
+  struct Edge* a1 = (struct Edge*)a;
+  struct Edge* b1 = (struct Edge*)b;
+  return a1->weight > b1->weight;
+
 }
 
 int
