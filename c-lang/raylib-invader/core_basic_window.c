@@ -1,35 +1,73 @@
-/*******************************************************************************************
-*
-*   raylib [core] example - Basic window
-*
-*   Welcome to raylib!
-*
-*   To test examples, just press F6 and execute raylib_compile_execute script
-*   Note that compiled executable is placed in the same folder as .c file
-*
-*   You can find all basic examples on C:\raylib\raylib\examples folder or
-*   raylib official webpage: www.raylib.com
-*
-*   Enjoy using raylib. :)
-*
-*   This example has been created using raylib 1.0 (www.raylib.com)
-*   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
-*
-*   Copyright (c) 2013-2016 Ramon Santamaria (@raysan5)
-*
-********************************************************************************************/
 
 #include "raylib.h"
+
+static void InitGame(void); // Initialize game
+static void UpdateGame(void); // UpdateGame (one frame)
+static void DrawGame(void); // Draw game (one frame)
+static const int screenWidth = 800;
+static const int screenHeight = 450;
+
+typedef struct Player
+{
+  Rectangle rect;
+  Vector2 speed;
+  Color color;
+} Player;
+
+// Player
+static Player player;
+
+void InitGame(void){
+  player.rect.x = screenWidth / 2.0f;
+  player.rect.y = screenHeight - 20;
+  player.rect.width = 20;
+  player.rect.height = 20;
+  player.speed.x = 5;
+  player.speed.y = 5;
+  player.color = BLACK;
+
+}
+
+void UpdateGame(void){
+  // Player movement
+  if (IsKeyDown(KEY_RIGHT)){
+    player.rect.x += player.speed.x;
+  }
+  if (IsKeyDown(KEY_LEFT)){
+    player.rect.x -= player.speed.x;
+  }
+
+  // Wall Behaviour
+  if (player.rect.x <= 0){
+    player.rect.x = 0;
+  }
+  if (player.rect.x + player.rect.width >= screenWidth){
+    player.rect.x = screenWidth - player.rect.width;
+  }
+
+}
+
+void DrawGame(void){
+  BeginDrawing();
+
+  ClearBackground(RAYWHITE);
+  DrawText("Space Invaders! ", 0, 0, 20, LIGHTGRAY);
+
+  // draw player
+  DrawRectangleRec(player.rect, player.color);
+
+  EndDrawing();
+
+}
+
 
 int main()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    int screenWidth = 800;
-    int screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
-
+    InitGame();
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
 
@@ -38,18 +76,12 @@ int main()
     {
         // Update
         //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
+      UpdateGame();
         //----------------------------------------------------------------------------------
 
         // Draw
         //----------------------------------------------------------------------------------
-        BeginDrawing();
-
-            ClearBackground(RAYWHITE);
-
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-
-        EndDrawing();
+      DrawGame();
         //----------------------------------------------------------------------------------
     }
 
@@ -63,5 +95,5 @@ int main()
 
 /* (compile "mkdir build && CXX=clang++ CC=clang cmake ..") */
 /* (compile "cd build && cmake ..") */
-/* (compile "cd build && \"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe\" example.sln " ) */
+/* (compile "cd build && \"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe\" example.sln  /clp:ErrorsOnly -m" ) */
 /* (send-to-shell "\"C:\\Users\\anma04\\aller_training\\new-m\\multiLangFun\\c-lang\\raylib-invader\\build\\Debug\\example.exe\"") */
