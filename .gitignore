@@ -3,3 +3,7 @@
 /go/ebiten-arkanoid/main
 /go/ebiten-arkanoid/main.exe
 /go/pkg
+/typescript/ts-bulma/.cache
+/typescript/ts-bulma/dist
+/typescript/ts-bulma/node_modules
+/c-lang/raylib-invader/build
