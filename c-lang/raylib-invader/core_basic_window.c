@@ -167,6 +167,9 @@ int main()
 }
 
 /* (compile "mkdir build && CXX=clang++ CC=clang cmake ..") */
+/* (compile "cd build && cmake -DCMAKE_TOOLCHAIN_FILE=Emscripten-wasm.cmake -G \"Ninja\" ..") */
+/* (send-to-shell "rm -rf build && mkdir build") */
+
 /* (compile "cd build && cmake ..") */
 /* (compile "cd build && \"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe\" example.sln  /clp:ErrorsOnly -m" ) */
 /* (send-to-shell "\"C:\\Users\\anma04\\aller_training\\new-m\\multiLangFun\\c-lang\\raylib-invader\\build\\Debug\\example.exe\"") */
